@@ -6,9 +6,9 @@ let question = {
     correct: 1
 };
 
-// function for starting the application
-function start() {
-    // show possible answers
+let app = {
+    start: function(){
+        // show possible answers
     let answers = document.querySelectorAll(".choice");
     answers.forEach(function(element, index) {
         element.addEventListener("click", function() {
@@ -17,19 +17,19 @@ function start() {
         })
     });
     // show first question
-    showQuestion(question);
+    this.showQuestion(question);
+    },
+
+    showQuestion: function(question) {
+        // show question title
+        let titleDiv = document.getElementById('title');
+        titleDiv.textContent = q.title; 
+        // show alternatives
+        let answers = document.querySelectorAll('.choice');
+        answers.forEach(function(element, index){
+        element.textContent = q.alternatives[index];
+        });
+    }
 };
 
-// function for showing the question
-function showQuestion(q) {
-    // show question title
-    let titleDiv = document.getElementById('title');
-    titleDiv.textContent = q.title; 
-    // show alternatives
-    let answers = document.querySelectorAll('.choice');
-    answers.forEach(function(element, index){
-    element.textContent = q.alternatives[index];
-    });
-}
-
-start();
+app.start();
