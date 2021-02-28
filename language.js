@@ -6,37 +6,30 @@ question = {
     correctAnswer: 1
 };
 
-function showQuestion(q) {
-    // select DOM element
-
-    let titleDiv = document.getElementById("title");
-
-    // modify DOM element
-
-    titleDiv.textContent = q.title;
-
-    // select by query
+function start() {
+    // show alternatives
     let alts = document.querySelectorAll(".alternative");
-    
     alts.forEach(function(element, index) {
-        element.textContent = q.alternatives[index];
         element.addEventListener("click", function() {
             // chceck for correct answer
-            if(q.correctAnswer == index) {
-                console.log("Correct Answer!");
-            }
-            else {
-                console.log("Wrong Answer!");
-            }
-        })
-    })
+            console.log("Check Correct Answer");
+        });
+    });
+};
+
+function showQuestion(q) {
+    // show question title
+    let titleDiv = document.getElementById("title");
+    titleDiv.textContent = q.title;
+
+    // show alternatives
+    let alts = document.querySelectorAll(".alternative");
+    alts.forEach(function(element, index) {
+        element.textContent = q.alternatives[index];
+    });
 }
 
-showQuestion(question);
+start();
 
-let btn = document.getElementById("btn");
 
-btn.addEventListener("click", function() {
-    console.log("Clicked!");
-})
 
