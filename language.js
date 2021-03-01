@@ -37,6 +37,9 @@ let app = {
         
         // keep track of current position in the questions array
         this.currentPosition = 0;
+
+        // keep track of player's score
+        this.score = 0;
         
         // show alternatives
         let alts = document.querySelectorAll(".alternative");
@@ -47,6 +50,9 @@ let app = {
             this.checkAnswer(index);
             });
         });
+
+        // show score
+        this.updateScore();
 
         // show first question
         this.showQuestion(questions[this.currentPosition]);
@@ -71,6 +77,7 @@ let app = {
 
         if(currentQuestion.correctAnswer == userSelected) {
             // correct answer
+            this.score++;
             console.log("Correct!")
         }
 
@@ -78,6 +85,9 @@ let app = {
             // incorrect answer
             console.log("Incorrect!")
         }
+
+        //update the score
+        this.updateScore();
 
         //increase position
         this.increasePosition();
@@ -95,6 +105,11 @@ let app = {
             // send back to beginning
             this.currentPosition = 0;
         }
+    },
+
+    updateScore: function() {
+        let scoreDiv = document.getElementById("score");
+        scoreDiv.textContent = `Your Score: ${this.score}`;
     }
 };
 
