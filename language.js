@@ -6,17 +6,40 @@ let question = {
     correctAnswer: 1
 };
 
+let questions = [
+    {
+        title: "gato",
+        alternatives: ["dog", "cat", "bird", "fish"],
+        correctAnswer: 1    
+    },
+    
+    {
+        title: "ave",
+        alternatives: ["mouse", "hamster", "lizard", "bird"],
+        correctAnswer: 3
+    },
+    
+    {
+        title: "rata",
+        alternatives: ["cat", "fish", "rat", "shark"],
+        correctAnswer: 2 
+    },
+    
+    {
+        title: "mosca",
+        alternatives: ["fly", "puma", "fish", "dog"],
+        correctAnswer: 0 
+    }
+];
+
 let app = {
     start: function() {
+        
+        // keep track of current position in the questions array
+        this.currentPosition = 0;
+        
         // show alternatives
         let alts = document.querySelectorAll(".alternative");
-        
-    /*    alts.forEach(function(element, index) {
-            element.addEventListener("click", function() {
-            // check for correct answer
-            this.checkAnswer(index);
-            }.bind(this));
-         }.bind(this)); */
         
         alts.forEach((element, index) => {
             element.addEventListener("click", () => {
@@ -26,13 +49,10 @@ let app = {
         });
 
         // show first question
-        this.showQuestion(question);
+        this.showQuestion(questions[this.currentPosition]);
     },
 
     showQuestion: function(q) {
-        
-        //keep track of current question
-        this.currentQuestion = q;
         
         // show question title
         let titleDiv = document.getElementById("title");
@@ -46,7 +66,10 @@ let app = {
     },
 
     checkAnswer: function(userSelected) {
-        if(this.currentQuestion.correctAnswer == userSelected) {
+
+        let currentQuestion = questions[this.currentPosition];
+
+        if(currentQuestion.correctAnswer == userSelected) {
             // correct answer
             console.log("Correct!")
         }
@@ -55,9 +78,27 @@ let app = {
             // incorrect answer
             console.log("Incorrect!")
         }
+
+        //increase position
+        this.increasePosition();
+
+        // show next question
+        this.showQuestion(questions[this.currentPosition]);
+    },
+
+    increasePosition: function() {
+        // advance the current position
+        this.currentPosition++;
+
+        // if reached the end of the question database
+        if(this.currentPosition == questions.length) {
+            // send back to beginning
+            this.currentPosition = 0;
+        }
     }
 };
 
+// initialize the application
 app.start();
 
 
