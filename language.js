@@ -79,11 +79,13 @@ let app = {
             // correct answer
             this.score++;
             console.log("Correct!")
+            this.showResult(true);
         }
 
         else {
             // incorrect answer
             console.log("Incorrect!")
+            this.showResult(false);
         }
 
         //update the score
@@ -110,6 +112,27 @@ let app = {
     updateScore: function() {
         let scoreDiv = document.getElementById("score");
         scoreDiv.textContent = `Your Score: ${this.score}`;
+    },
+
+    showResult: function(isCorrect) {
+        let resultDiv = document.getElementById("result");
+        let result = "";
+
+        //checks
+        if(isCorrect) {
+            result = "Correct!"
+        }
+        else {
+            // get the current question
+            let currentQuestion = questions[this.currentPosition];
+            // get correct answer's index
+            let correctAnswerIndex = currentQuestion.correctAnswer;
+            // get correct answer text
+            let correctAnswerText = currentQuestion.alternatives[correctAnswerIndex];
+            result = `Incorrect! The correct answer is ${correctAnswerText}`
+        }
+
+        resultDiv.textContent = result;
     }
 };
 
